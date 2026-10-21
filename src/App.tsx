@@ -4,6 +4,7 @@ import ProblemSection from './components/ProblemSection';
 import PhasesSection from './components/PhasesSection';
 import ArchitectureSection from './components/ArchitectureSection';
 import HowItWorks from './components/HowItWorks';
+import RepoSection from './components/RepoSection';
 import BenefitsSection from './components/BenefitsSection';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
@@ -20,6 +21,7 @@ function App() {
       <PhasesSection activePhase={activePhase} setActivePhase={setActivePhase} />
       <ArchitectureSection />
       <HowItWorks />
+      <RepoSection />
       <BenefitsSection />
       <CTASection />
       <Footer />

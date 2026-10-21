@@ -1,0 +1,63 @@
+# GitHub Action: Reporte Semanal Automático
+# Genera el reporte semanal de ventas usando Qwen
+
+name: Weekly Sales Report
+
+on:
+  schedule:
+    # Cada viernes a las 5:00 PM (hora española)
+    - cron: '0 15 * * 5'  # UTC 15:00 = CET 17:00
+  workflow_dispatch:
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Fetch pipeline data
+        env:
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: |
+          echo "Fetching pipeline data from Google Sheets..."
+          # Script que extrae los datos del pipeline de la semana
+
+      - name: Generate report with Qwen
+        env:
+          QWEN_API_KEY: ${{ secrets.QWEN_API_KEY }}
+        run: |
+          echo "Generating weekly report with Qwen..."
+          # Script que:
+          # 1. Lee los datos del pipeline
+          # 2. Los envía a Qwen con el prompt de "Informe semanal" (Fase 8)
+          # 3. Guarda el resultado en un archivo markdown
+
+      - name: Create Google Doc with report
+        env:
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: |
+          echo "Creating Google Doc with the report..."
+          # Script que crea un Google Doc con el reporte generado
+          # y lo comparte con los stakeholders configurados
+
+      - name: Archive report in repo
+        run: |
+          mkdir -p reports/$(date +%Y)/$(date +%V)
+          cp report.md reports/$(date +%Y)/$(date +%V)/weekly-report.md
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add reports/
+          git commit -m "📊 Weekly report - Week $(date +%V)" || echo "No changes"
+          git push || echo "No changes to push"
+
+      - name: Notify team
+        if: ${{ secrets.SLACK_WEBHOOK != '' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_MESSAGE: "📊 El reporte semanal de ventas está listo. Revisa el Google Doc compartido."
+          SLACK_COLOR: '#10b981'
