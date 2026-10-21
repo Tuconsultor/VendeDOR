@@ -24,7 +24,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-gray-500">
               <li><a href="#fases" className="hover:text-white transition-colors">8 Fases</a></li>
               <li><a href="#arquitectura" className="hover:text-white transition-colors">Arquitectura</a></li>
-              <li><a href="#como-funciona" className="hover:text-white transition-colors">Cómo funciona</a></li>
+              <li><a href="#repo" className="hover:text-white transition-colors">Repositorio</a></li>
               <li><a href="#beneficios" className="hover:text-white transition-colors">Beneficios</a></li>
             </ul>
           </div>
