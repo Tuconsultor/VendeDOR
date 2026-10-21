@@ -1,83 +1,44 @@
-# GitHub Action: Enriquecimiento Diario de Prospectos
-# Automatiza el análisis diario de nuevos prospectos con Qwen
-
-name: Daily Prospect Enrichment
-
+name: Enriquecimiento de prospectos
 on:
-  schedule:
-    # Cada día a las 8:00 AM (hora española)
-    - cron: '0 6 * * 1-5'  # Lunes a viernes, UTC 6:00 = CET 8:00
   workflow_dispatch:
-    inputs:
-      prospect_list:
-        description: 'Lista de prospectos a enriquecer (JSON)'
-        required: false
-        type: string
-
+  # Activa el horario solo después de validar con una hoja de prueba. UTC todo el año.
+  # schedule:
+  #   - cron: '0 14 * * 1-5'
+permissions:
+  contents: read
+concurrency:
+  group: sales-integrations
+  cancel-in-progress: false
 jobs:
-  enrich-prospects:
+  enrich:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Exigir un repositorio privado para datos comerciales
+        if: ${{ !github.event.repository.private }}
+        run: |
+          echo "Instala esta automatización en un repositorio privado. Consulta la guía."
+          exit 1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install @googleapis/sheets node-fetch
-        # Nota: Necesitarás configurar las credenciales de Google API
-
-      - name: Read new prospects from Google Sheets
+          node-version: 24
+      - name: Validar conexiones y enriquecer
+        working-directory: public/repo
         env:
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        run: |
-          node scripts/read-prospects.js
-          # Este script lee los prospectos nuevos (sin score ICP) de la hoja
-
-      - name: Enrich with Qwen AI
-        env:
           QWEN_API_KEY: ${{ secrets.QWEN_API_KEY }}
+          QWEN_BASE_URL: ${{ vars.QWEN_BASE_URL }}
+          QWEN_MODEL: ${{ vars.QWEN_MODEL }}
+          BUSINESS_CONTEXT: ${{ vars.BUSINESS_CONTEXT }}
+          MAX_PROSPECTS: '10'
         run: |
-          node scripts/enrich-with-qwen.js
-          # Este script envía cada prospecto a Qwen con el prompt de prospección
-          # y guarda el resultado (score, dolor, ángulo, prioridad)
-
-      - name: Write enriched data back to Google Sheets
-        env:
-          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        run: |
-          node scripts/write-results.js
-          # Actualiza la hoja con los datos enriquecidos
-
-      - name: Generate daily summary
-        run: |
-          echo "## 🎯 Enriquecimiento Diario - $(date +%Y-%m-%d)" > summary.md
-          echo "" >> summary.md
-          echo "### Prospectos procesados hoy:" >> summary.md
-          echo "- Nuevos prospectos analizados: X" >> summary.md
-          echo "- Score alto (>8): Y prospectos" >> summary.md
-          echo "- Score medio (5-7): Z prospectos" >> summary.md
-          echo "- Score bajo (<5): W prospectos" >> summary.md
-          echo "" >> summary.md
-          echo "### Top 5 prospectos para contactar hoy:" >> summary.md
-          echo "(Ver Google Sheets - Pestaña 'Pipeline Principal')" >> summary.md
-
-      - name: Create summary issue
-        uses: actions/github-script@v7
+          node scripts/sales.mjs check
+          node scripts/sales.mjs enrich
+      - name: Guardar justificaciones si hubo resultados
+        uses: actions/upload-artifact@v4
         with:
-          script: |
-            const fs = require('fs');
-            const body = fs.readFileSync('summary.md', 'utf8');
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `🎯 Enriquecimiento Diario - ${new Date().toISOString().split('T')[0]}`,
-              body: body,
-              labels: ['enrichment', 'daily']
-            });
+          name: enrichment-${{ github.run_id }}-${{ github.run_attempt }}
+          path: public/repo/output/enrichment.json
+          if-no-files-found: ignore
+          retention-days: 7

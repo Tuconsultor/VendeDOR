@@ -3,3 +3,10 @@ node_modules/
 dist/
 build/
 *.log
+
+# Local integration output and credentials
+output/
+.env
+.env.*
+!.env.example
+*service-account*.json

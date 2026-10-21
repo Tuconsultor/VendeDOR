@@ -32,7 +32,7 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-gray-300 mb-3">Plataformas</h4>
             <ul className="space-y-2 text-sm text-gray-500">
-              <li><a href="https://github.com" target="_blank" rel="noopener" className="hover:text-white transition-colors">GitHub</a></li>
+              <li><a href="https://github.com/Tuconsultor/VendeDOR" target="_blank" rel="noopener" className="hover:text-white transition-colors">GitHub</a></li>
               <li><a href="https://drive.google.com" target="_blank" rel="noopener" className="hover:text-white transition-colors">Google Drive</a></li>
               <li><a href="https://qwen.ai" target="_blank" rel="noopener" className="hover:text-white transition-colors">Qwen AI</a></li>
             </ul>
@@ -41,7 +41,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-gray-800/50 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-gray-600">
-            © 2025 VentasIA. Sistema abierto y gratuito.
+            © 2026 VendeDOR. <a className="underline" href={`${import.meta.env.BASE_URL}repo/LICENSE`} download="LICENSE">Licencia MIT</a>.
           </p>
           <p className="text-sm text-gray-600">
             Hecho con 💜 para vendedores que quieren vender más con IA.

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import GuideSection from './components/GuideSection';
 import HeroSection from './components/HeroSection';
 import ProblemSection from './components/ProblemSection';
 import PhasesSection from './components/PhasesSection';
@@ -21,6 +22,7 @@ function App() {
       <PhasesSection activePhase={activePhase} setActivePhase={setActivePhase} />
       <ArchitectureSection />
       <HowItWorks />
+      <GuideSection />
       <RepoSection />
       <BenefitsSection />
       <CTASection />

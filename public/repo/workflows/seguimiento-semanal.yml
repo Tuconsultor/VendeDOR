@@ -1,56 +1,23 @@
-# GitHub Action: Seguimiento Semanal
-# Este workflow genera un recordatorio semanal para revisar el pipeline
-
-name: Weekly Pipeline Review Reminder
-
+name: Recordatorio de pipeline
 on:
-  schedule:
-    # Cada lunes a las 9:00 AM (hora española)
-    - cron: '0 7 * * 1'  # UTC 7:00 = CET 9:00
-  workflow_dispatch:  # Permitir ejecución manual
-
+  workflow_dispatch:
+  # Activa el horario solo después de probar la ejecución manual. UTC todo el año.
+  # schedule:
+  #   - cron: '0 15 * * 1'
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: sales-integrations
+  cancel-in-progress: false
 jobs:
-  pipeline-review:
+  reminder:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Generate review checklist
-        run: |
-          echo "## 📊 Pipeline Review - Semana $(date +%V)" > review.md
-          echo "" >> review.md
-          echo "### Checklist para hoy:" >> review.md
-          echo "- [ ] Revisar deals estancados (>14 días en misma fase)" >> review.md
-          echo "- [ ] Follow-ups pendientes de esta semana" >> review.md
-          echo "- [ ] Actualizar probabilidades de cierre" >> review.md
-          echo "- [ ] Identificar top 3 prioridades de la semana" >> review.md
-          echo "- [ ] Preparar reporte para dirección" >> review.md
-          echo "" >> review.md
-          echo "### Prompts de Qwen a usar hoy:" >> review.md
-          echo "1. Análisis de pipeline (prompts/03-pipeline.md)" >> review.md
-          echo "2. Priorización de deals (prompts/03-pipeline.md)" >> review.md
-          echo "3. Forecast semanal (prompts/03-pipeline.md)" >> review.md
-          
-      - name: Create Issue
-        uses: actions/github-script@v7
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          script: |
-            const fs = require('fs');
-            const body = fs.readFileSync('review.md', 'utf8');
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `📊 Pipeline Review - Semana ${new Date().getWeek()}`,
-              body: body,
-              labels: ['pipeline-review', 'weekly']
-            });
-
-      - name: Notify team (optional - Slack)
-        if: ${{ secrets.SLACK_WEBHOOK != '' }}
-        uses: rtCamp/action-slack-notify@v2
+          node-version: 24
+      - run: node public/repo/scripts/review.mjs
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_MESSAGE: "📊 Es hora del Pipeline Review semanal. Revisa la Issue creada en GitHub."
-          SLACK_COLOR: '#6366f1'
+          GITHUB_TOKEN: ${{ github.token }}

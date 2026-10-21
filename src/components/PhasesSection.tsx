@@ -11,7 +11,7 @@ const phases = [
     description: 'Busca en LinkedIn, analiza competidores y enriquece tus listas de contactos con IA.',
     tools: {
       qwen: 'Genera perfiles de cliente ideal (ICP), analiza cuentas objetivo y crea listas segmentadas',
-      github: 'Plantillas de scripts de outreach, secuencias de email y criterios de cualificación',
+      github: 'Prompts de primer contacto y criterios de cualificación',
       drive: 'Bases de datos de prospectos, listas enriquecidas y tracking de actividad',
     },
     color: 'from-violet-500 to-purple-600',
@@ -24,7 +24,7 @@ const phases = [
     description: 'Storytelling comercial y casos de éxito personalizados para cada cliente.',
     tools: {
       qwen: 'Crea guiones de demo personalizados, storytelling adaptado al sector del cliente',
-      github: 'Templates de presentaciones, casos de éxito por industria, scripts de demo',
+      github: 'Prompts para guiones de demo y borradores de presentación',
       drive: 'Deck de presentaciones, videos de demo, documentos de casos de éxito',
     },
     color: 'from-purple-500 to-pink-600',
@@ -63,7 +63,7 @@ const phases = [
     description: 'Preguntas de descubrimiento, análisis de presupuesto y mapa de decisores.',
     tools: {
       qwen: 'Genera preguntas de descubrimiento por sector, analiza respuestas del cliente',
-      github: 'Frameworks de cualificación (BANT, MEDDIC), mapas de decisores',
+      github: 'Framework MEDDPICC y mapa de decisores',
       drive: 'Notas de descubrimiento, grabaciones, análisis de necesidades',
     },
     color: 'from-orange-500 to-amber-600',
@@ -76,7 +76,7 @@ const phases = [
     description: 'Una base de objeciones comunes con respuestas y argumentarios de valor.',
     tools: {
       qwen: 'Genera respuestas a objeciones, argumentarios de valor, contra-argumentos',
-      github: 'Base de datos de objeciones, respuestas probadas, playbooks',
+      github: 'Base orientativa de objeciones y playbooks editables',
       drive: 'Documentos de respuestas, casos de éxito como prueba social, ROI calculators',
     },
     color: 'from-amber-500 to-yellow-600',
@@ -89,7 +89,7 @@ const phases = [
     description: 'Guiones de cierre, manejo de descuentos y revisión de propuestas.',
     tools: {
       qwen: 'Simula escenarios de negociación, sugiere estrategias de cierre, revisa propuestas',
-      github: 'Templates de propuestas, matrices de descuento, guiones de cierre',
+      github: 'Plantilla de propuesta y prompts de negociación y cierre',
       drive: 'Propuestas comerciales, contratos, términos y condiciones',
     },
     color: 'from-yellow-500 to-lime-600',
@@ -102,7 +102,7 @@ const phases = [
     description: 'Resúmenes de reunión, informes para dirección y dashboards de ventas.',
     tools: {
       qwen: 'Genera resúmenes de reuniones, crea informes ejecutivos, analiza métricas',
-      github: 'Templates de reportes, dashboards, formatos de comunicación interna',
+      github: 'Prompts de reportes y script para métricas e informe de situación',
       drive: 'Informes semanales, dashboards, actas de reunión, KPIs',
     },
     color: 'from-lime-500 to-emerald-600',

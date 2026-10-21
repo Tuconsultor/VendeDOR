@@ -10,7 +10,7 @@ export default function HeroSection() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-gray-800/50 border border-gray-700/50 rounded-full mb-8">
           <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-          <span className="text-sm text-gray-300">Sistema abierto · 100% gratuito</span>
+          <span className="text-sm text-gray-300">Kit abierto · Recursos gratuitos</span>
         </div>
 
         {/* Main headline */}
@@ -18,12 +18,12 @@ export default function HeroSection() {
           <span className="text-white">Tu proceso de ventas</span>
           <br />
           <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-            automatizado con IA
+            asistido por IA
           </span>
         </h1>
 
         <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed">
-          De la prospección al reporting. <strong className="text-white">8 fases conectadas</strong> usando{' '}
+          De la prospección al reporting. <strong className="text-white">recursos para 8 fases</strong> usando{' '}
           <span className="text-violet-400 font-medium">Qwen</span> como motor de IA,{' '}
           <span className="text-cyan-400 font-medium">GitHub</span> para plantillas y código, y{' '}
           <span className="text-emerald-400 font-medium">Google Drive</span> para documentos y datos.
@@ -53,8 +53,8 @@ export default function HeroSection() {
 
         {/* CTA buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#fases" className="px-8 py-3.5 bg-gradient-to-r from-violet-600 to-cyan-600 rounded-xl font-semibold hover:from-violet-500 hover:to-cyan-500 transition-all shadow-lg shadow-violet-600/20">
-            Ver las 8 fases →
+          <a href="#guia" className="px-8 py-3.5 bg-gradient-to-r from-violet-600 to-cyan-600 rounded-xl font-semibold hover:from-violet-500 hover:to-cyan-500 transition-all shadow-lg shadow-violet-600/20">
+            Ponerlo en marcha →
           </a>
           <a href="#arquitectura" className="px-8 py-3.5 bg-gray-800/60 border border-gray-700/50 rounded-xl font-semibold hover:bg-gray-800 transition-all">
             Cómo se integra
@@ -65,7 +65,7 @@ export default function HeroSection() {
         <div className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
           <div>
             <div className="text-2xl sm:text-3xl font-bold text-white">8</div>
-            <div className="text-xs sm:text-sm text-gray-500">Fases conectadas</div>
+            <div className="text-xs sm:text-sm text-gray-500">Fases comerciales</div>
           </div>
           <div>
             <div className="text-2xl sm:text-3xl font-bold text-white">3</div>

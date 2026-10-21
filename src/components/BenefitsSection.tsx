@@ -13,22 +13,22 @@ export default function BenefitsSection() {
     {
       icon: '📋',
       title: 'Templates listos',
-      description: 'No empiezas de cero. Cada fase tiene plantillas probadas en GitHub.',
+      description: 'No empiezas de cero. Cada fase tiene plantillas editables en GitHub.',
     },
     {
       icon: '🔄',
-      title: 'Automatización real',
-      description: 'GitHub Actions ejecuta tareas recurrentes sin intervención manual.',
+      title: 'Automatización opcional',
+      description: 'Activa tareas recurrentes después de configurar y validar tus conexiones.',
     },
     {
       icon: '💰',
-      title: '100% gratuito',
-      description: 'GitHub, Google Drive y Qwen tienen planes gratuitos suficientes para empezar.',
+      title: 'Recursos gratuitos',
+      description: 'Los materiales son gratuitos. Revisa las cuotas y tarifas de los servicios que elijas.',
     },
     {
       icon: '🔒',
       title: 'Tus datos, tuyos',
-      description: 'Todo vive en tus cuentas. Sin depender de un SaaS de terceros.',
+      description: 'Gestionas tus cuentas y permisos. Los datos enviados a Google y Qwen siguen sus políticas.',
     },
     {
       icon: '📈',

@@ -4,12 +4,12 @@ export default function HowItWorks() {
       step: '01',
       title: 'Clona el repositorio',
       description: 'Accede a las plantillas, scripts y frameworks del sistema de ventas en GitHub.',
-      detail: 'Cada fase tiene su carpeta con templates listos para usar.',
+      detail: 'Descarga los recursos desde esta página o clona el repositorio.',
     },
     {
       step: '02',
       title: 'Conecta Google Drive',
-      description: 'Vincula tus hojas de cálculo y documentos para que Qwen pueda leer y escribir datos.',
+      description: 'Crea tus hojas y documentos; empieza copiando los datos manualmente.',
       detail: 'Usa Google Sheets como tu CRM ligero y Docs para propuestas.',
     },
     {
@@ -22,7 +22,7 @@ export default function HowItWorks() {
       step: '04',
       title: 'Automatiza con GitHub Actions',
       description: 'Programa tareas recurrentes: seguimiento de deals, generación de reportes, enriquecimiento de datos.',
-      detail: 'Workflows que corren cada día/semana sin intervención manual.',
+      detail: 'Consulta la guía de automatización y valida las conexiones antes de programarlos.',
     },
   ];
 
@@ -34,7 +34,7 @@ export default function HowItWorks() {
             ¿Cómo se pone en marcha?
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            4 pasos para tener tu sistema de ventas con IA funcionando.
+            Recorrido manual disponible; integraciones opcionales con configuración propia.
           </p>
         </div>
 

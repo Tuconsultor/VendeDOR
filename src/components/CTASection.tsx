@@ -30,19 +30,19 @@ export default function CTASection() {
               </div>
               <div className="flex items-center justify-center gap-3 text-gray-300">
                 <span className="text-green-400">✅</span>
-                <span>Completamente gratis</span>
+                <span>Recursos gratuitos; APIs y servicios sujetos a sus tarifas</span>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="#"
+                href="#guia"
                 className="px-8 py-4 bg-gradient-to-r from-violet-600 to-cyan-600 rounded-xl font-semibold text-lg hover:from-violet-500 hover:to-cyan-500 transition-all shadow-lg shadow-violet-600/20"
               >
-                Acceder al sistema →
+                Empezar con la guía →
               </a>
               <a
-                href="#"
+                href="https://github.com/Tuconsultor/VendeDOR"
                 className="px-8 py-4 bg-gray-800/60 border border-gray-700/50 rounded-xl font-semibold text-lg hover:bg-gray-800 transition-all"
               >
                 Ver en GitHub

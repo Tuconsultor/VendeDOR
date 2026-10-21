@@ -50,7 +50,7 @@
 | Viernes | Review semanal + plan siguiente | ☐ |
 | Viernes | Reporte para dirección | ☐ |
 
-## Cómo automatizar con Qwen
+## Cómo generar el informe manualmente con Qwen
 
 Cada viernes:
 1. Copia los datos de "Métricas Semanales"
@@ -58,3 +58,5 @@ Cada viernes:
 3. Qwen genera el informe
 4. Pégalo en un Google Doc
 5. Compártelo con dirección
+
+Para la opción API, consulta ../guias/automatizacion.md. El reporte automático es una fotografía de todas las oportunidades; no calcula diferencias semanales sin histórico.
