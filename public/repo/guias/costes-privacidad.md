@@ -12,6 +12,12 @@ La web no cobra ni solicita registro. Eso no garantiza que los servicios externo
 - Google y GitHub aplican sus cuotas, límites, planes y posibles requisitos de facturación. Los minutos de Actions y almacenamiento en repositorios privados dependen de tu plan.
 - Configura límites y avisos de gasto en cada proveedor. Empieza con datos ficticios y ejecuciones manuales. No se promete coste cero.
 
+## Asistente para vendedores
+
+El asistente prepara mensajes y archivos en tu navegador. No envía los datos del formulario a un backend de VendeDOR ni usa una API de IA. El botón Abrir Qwen lleva a un servicio externo: tú decides qué pegar y enviar. Al importar la hoja a Google o compartir un archivo, se aplican las condiciones de esos servicios.
+
+«Guardar mi avance en este navegador» está desactivado inicialmente. Si lo activas, guarda tu negocio, cliente, notas y progreso en el almacenamiento local de este navegador, accesible para quienes usen ese perfil del equipo. No es una cuenta en la nube ni una copia de seguridad. Desactivarlo elimina la copia local guardada; «Borrar mis datos» también limpia el formulario. Los archivos que descargaste se borran por separado desde tu equipo.
+
 ## Dónde van los datos
 
 En modo manual tú eliges qué pegar en Qwen y qué guardar en Google. Qwen no recibe acceso automático a Drive por usar esta web.

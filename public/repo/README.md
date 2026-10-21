@@ -2,7 +2,13 @@
 
 Biblioteca de prompts, plantillas, playbooks y automatizaciones opcionales para Qwen, Google Sheets/Docs y GitHub Actions.
 
-## Empieza sin programar
+## Empieza con el asistente
+
+Abre https://tuconsultor.github.io/VendeDOR/#guia. Configura tu negocio, descarga una hoja preparada (Excel/Google Sheets), registra tu primer cliente y copia el mensaje personalizado a Qwen. Revisa la respuesta y descarga tu primer seguimiento con una acción y fecha. No necesitas GitHub ni claves de API.
+
+El asistente prepara archivos en tu navegador. La respuesta de IA se genera en Qwen cuando envías el mensaje allí. La hoja y el formulario se editan por separado; una descarga nueva no recupera cambios hechos en Sheets. El guardado local es opcional e incluye datos del cliente y notas. Usa un equipo de confianza.
+
+## Alternativa: materiales paso a paso
 
 1. Sigue [la guía manual](guias/inicio-manual.md).
 2. Importa [el pipeline de ejemplo](ejemplos/pipeline-demo.csv) en una hoja tuya de Google Sheets.

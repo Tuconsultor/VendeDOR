@@ -10,11 +10,11 @@ export default function Footer() {
                 <span className="text-white font-bold text-sm">V</span>
               </div>
               <span className="text-lg font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
-                VentasIA
+                VendeDOR
               </span>
             </div>
             <p className="text-sm text-gray-500 max-w-sm">
-              Un sistema abierto de ventas con IA. GitHub + Google Drive + Qwen para cubrir las 8 fases de tu proceso comercial.
+              Un asistente guiado para organizar tus oportunidades y preparar acciones comerciales con tus propios datos.
             </p>
           </div>
 
@@ -23,7 +23,7 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-gray-300 mb-3">Sistema</h4>
             <ul className="space-y-2 text-sm text-gray-500">
               <li><a href="#fases" className="hover:text-white transition-colors">8 Fases</a></li>
-              <li><a href="#arquitectura" className="hover:text-white transition-colors">Arquitectura</a></li>
+              <li><a href="#avanzado" className="hover:text-white transition-colors">Automatización opcional</a></li>
               <li><a href="#repo" className="hover:text-white transition-colors">Repositorio</a></li>
               <li><a href="#beneficios" className="hover:text-white transition-colors">Beneficios</a></li>
             </ul>

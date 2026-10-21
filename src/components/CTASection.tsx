@@ -39,7 +39,7 @@ export default function CTASection() {
                 href="#guia"
                 className="px-8 py-4 bg-gradient-to-r from-violet-600 to-cyan-600 rounded-xl font-semibold text-lg hover:from-violet-500 hover:to-cyan-500 transition-all shadow-lg shadow-violet-600/20"
               >
-                Empezar con la guía →
+                Configurar mi negocio →
               </a>
               <a
                 href="https://github.com/Tuconsultor/VendeDOR"

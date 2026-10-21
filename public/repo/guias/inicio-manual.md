@@ -1,5 +1,17 @@
 # Puesta en marcha manual de VendeDOR
 
+## Opción recomendada: asistente para vendedores
+
+En https://tuconsultor.github.io/VendeDOR/#guia pulsa «Configurar mi negocio». Completa los cuatro pasos: Mi negocio, Mi hoja, Mi primer cliente y Mi primera acción. El asistente prepara tus mensajes con los datos que introduces: no hace falta editar variables ni archivos de código.
+
+Tu hoja se descarga como un archivo .xlsx con fases desplegables, fórmulas y Dashboard. Puedes abrirla directamente en Excel o importarla en Google Sheets (Archivo → Importar → Subir → Crear hoja de cálculo nueva). Comprueba las pestañas y los desplegables en la aplicación que elijas; las opciones de importación dependen de esa aplicación. Google Sheets recalcula las fórmulas al abrir el archivo. Si una aplicación no conserva las validaciones, usa las fases indicadas en la pestaña Empieza aquí o vuelve a importarlo en Sheets/Excel.
+
+La primera descarga es una hoja vacía de tu negocio. La descarga final incluye tu primer cliente y su acción con fecha. Importa cada copia como una hoja nueva: el asistente no se sincroniza con Google y no incluye cambios que ya hiciste en Sheets. Después del recorrido, continúa añadiendo oportunidades en la hoja que elegiste. Para nuevas filas asigna un ID único (D002, D003…), añade el cliente, su fase, la probabilidad y la siguiente acción. Las fórmulas y listas están preparadas para 500 oportunidades.
+
+La IA responde en Qwen Chat cuando tú pegas y envías el mensaje; el sitio no contacta prospectos. Revisa la respuesta y registra lo que harás tú. Solo se guarda el avance entre sesiones si activas «Guardar mi avance en este navegador»; incluye el cliente y tus notas. Desactívalo en dispositivos compartidos y usa «Borrar mis datos» cuando termines. Los archivos descargados permanecen en tu equipo hasta que los borres allí.
+
+## Opción alternativa: trabajar directamente con los materiales
+
 Este recorrido permite usar los materiales sin programar. La web es una biblioteca: no es un CRM alojado, no inicia sesión en Google ni conecta automáticamente tu chat de Qwen con Drive.
 
 ## 1. Qué necesitas

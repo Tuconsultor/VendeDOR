@@ -12,17 +12,17 @@ export default function Navbar() {
               <span className="text-white font-bold text-sm">V</span>
             </div>
             <span className="text-lg font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
-              VentasIA
+              VendeDOR
             </span>
           </div>
 
           <div className="hidden md:flex items-center gap-8">
             <a href="#fases" className="text-gray-400 hover:text-white transition-colors text-sm">8 Fases</a>
-            <a href="#arquitectura" className="text-gray-400 hover:text-white transition-colors text-sm">Arquitectura</a>
+            <a href="#avanzado" className="text-gray-400 hover:text-white transition-colors text-sm">Avanzado</a>
             <a href="#repo" className="text-gray-400 hover:text-white transition-colors text-sm">Recursos</a>
             <a href="#beneficios" className="text-gray-400 hover:text-white transition-colors text-sm">Beneficios</a>
             <a href="#guia" className="px-4 py-2 bg-gradient-to-r from-violet-600 to-cyan-600 rounded-lg text-sm font-medium hover:from-violet-500 hover:to-cyan-500 transition-all">
-              Guía de inicio
+              Configurar mi negocio
             </a>
           </div>
 
@@ -38,12 +38,12 @@ export default function Navbar() {
         </div>
 
         {isOpen && (
-          <div className="md:hidden pb-4 space-y-2">
+          <div className="md:hidden pb-4 space-y-2" onClick={() => setIsOpen(false)}>
             <a href="#fases" className="block px-3 py-2 text-gray-400 hover:text-white text-sm">8 Fases</a>
-            <a href="#arquitectura" className="block px-3 py-2 text-gray-400 hover:text-white text-sm">Arquitectura</a>
+            <a href="#avanzado" className="block px-3 py-2 text-gray-400 hover:text-white text-sm">Avanzado</a>
             <a href="#repo" className="block px-3 py-2 text-gray-400 hover:text-white text-sm">Recursos</a>
             <a href="#beneficios" className="block px-3 py-2 text-gray-400 hover:text-white text-sm">Beneficios</a>
-            <a href="#guia" className="block px-3 py-2 text-violet-400 font-medium text-sm">Guía de inicio</a>
+            <a href="#guia" className="block px-3 py-2 text-violet-400 font-medium text-sm">Configurar mi negocio</a>
           </div>
         )}
       </div>

@@ -3,6 +3,7 @@ import { repositoryUrl, resourceFolders, resourceUrl } from '../lib/resources';
 
 export default function RepoSection() {
   const [activeFolder, setActiveFolder] = useState(0);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [document, setDocument] = useState<{ path: string; content: string } | null>(null);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -45,13 +46,14 @@ export default function RepoSection() {
     <section id="repo" className="scroll-mt-20 py-20 px-4 bg-gray-900/30">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Recursos para ponerlo en marcha</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Materiales y ayuda para seguir</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">Lee la guía, practica con datos ficticios y adapta los prompts a tu negocio. Cada archivo se puede abrir, copiar completo o descargar.</p>
           <a className="inline-block mt-4 text-violet-300 underline" href={`${repositoryUrl}/archive/refs/heads/main.zip`}>Descargar todo el repositorio (.zip)</a>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <nav aria-label="Carpetas de recursos" className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-            {resourceFolders.map((item, index) => (
+            <label className="flex gap-2 items-start text-sm text-gray-300 mb-4"><input type="checkbox" className="mt-1" checked={showAdvanced} onChange={event => { setShowAdvanced(event.target.checked); if (!event.target.checked && activeFolder >= 5) setActiveFolder(0); }} />Mostrar recursos técnicos opcionales</label>
+            {resourceFolders.map((item, index) => (index < 5 || showAdvanced) && (
               <button key={item.name} aria-pressed={index === activeFolder} onClick={() => setActiveFolder(index)}
                 className={`block w-full text-left px-3 py-3 rounded-lg ${index === activeFolder ? 'bg-violet-900/40 text-violet-200' : 'text-gray-400 hover:bg-gray-800'}`}>{item.name}/</button>
             ))}
