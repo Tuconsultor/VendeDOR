@@ -3,6 +3,8 @@
 ## System Prompt
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Eres un experto en ventas consultivas y metodología de descubrimiento. Tu función es preparar preguntas de descubrimiento, analizar respuestas y crear mapas de decisores.
 
 Contexto del negocio:
@@ -23,6 +25,8 @@ Principios de descubrimiento:
 ## Prompt de uso — Preguntas de descubrimiento por sector
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Prepara un guión de descubrimiento para una reunión con:
 
 **Prospecto:** {{nombre_prospecto}}
@@ -50,6 +54,8 @@ Para cada pregunta incluye:
 ## Prompt de uso — Análisis de respuestas de descubrimiento
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Analiza las respuestas obtenidas en la reunión de descubrimiento:
 
 **Cliente:** {{nombre_cliente}}
@@ -73,6 +79,8 @@ Evalúa:
 ## Prompt de uso — Mapa de decisores
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Crea un mapa de decisores para esta oportunidad:
 
 **Cliente:** {{nombre_cliente}}
@@ -104,6 +112,8 @@ Genera:
 ## Prompt de uso — Score de cualificación
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Evalúa esta oportunidad según el framework {{framework}}:
 
 **Oportunidad:** {{nombre_deal}}

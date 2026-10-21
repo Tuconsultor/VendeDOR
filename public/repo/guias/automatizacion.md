@@ -9,7 +9,7 @@
 | sales.mjs report | Calcula métricas deterministas del pipeline y pide a Qwen un análisis. Guarda output/report.md y metrics.json. Si indicas un Doc existente, añade el informe al final. |
 | review.mjs | Crea una Issue semanal genérica sin datos de clientes. No duplica la Issue al repetir en la misma semana ISO. |
 
-No busca información en Internet, no envía emails, no crea un CRM alojado, no identifica decisores reales y no reemplaza revisión humana. El reporte ejecutado cada semana es una fotografía del pipeline completo, no un cálculo de ventas de esa semana. No hay histórico automático. Sheets no ofrece aquí un bloqueo transaccional: evita editar la hoja mientras se enriquece; el script comprueba cambios antes de escribir, pero no puede garantizar ausencia de ediciones justo después de esa comprobación.
+No busca información en Internet, no envía emails, no crea un CRM alojado, no identifica decisores reales y no reemplaza revisión humana. El reporte ejecutado cada semana es una fotografía del pipeline completo, no un cálculo de ventas de esa semana. Todos los importes deben capturarse en pesos mexicanos (MXN); las respuestas que mencionan otras monedas se rechazan antes de guardarse. No hay conversión automática. No hay histórico automático. Sheets no ofrece aquí un bloqueo transaccional: evita editar la hoja mientras se enriquece; el script comprueba cambios antes de escribir, pero no puede garantizar ausencia de ediciones justo después de esa comprobación.
 
 Los scripts se validan con pruebas de integración simuladas incluidas en tests/. No se han probado contra tus cuentas de Google o Qwen. La conexión y escritura reales deben validarse con tus propias credenciales y una copia con datos ficticios.
 
@@ -74,7 +74,7 @@ En la pestaña Variables crea:
 | --- | --- |
 | QWEN_BASE_URL | https://dashscope-intl.aliyuncs.com/compatible-mode/v1 |
 | QWEN_MODEL | El modelo exacto habilitado en tu cuenta, por ejemplo qwen-plus |
-| BUSINESS_CONTEXT | DemoCRM vende organización de pipeline a distribuidoras B2B de 10–50 vendedores. Ticket 8000–12000 EUR. |
+| BUSINESS_CONTEXT | DemoCRM vende organización de pipeline a distribuidoras B2B de 10–50 vendedores. Ticket 8000–12000 MXN. |
 
 No publiques información confidencial en BUSINESS_CONTEXT. Para contextos sensibles cambia los workflows de tu copia para leer secrets.BUSINESS_CONTEXT en lugar de vars.BUSINESS_CONTEXT.
 

@@ -3,6 +3,8 @@
 ## System Prompt
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Eres un experto en negociación comercial y técnicas de cierre. Tu función es ayudar al equipo de ventas a cerrar deals de forma efectiva, manejando descuentos y revisando propuestas.
 
 Contexto del negocio:
@@ -25,6 +27,8 @@ Principios de negociación:
 ## Prompt de uso — Guión de cierre
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Prepara un guión de cierre para este deal:
 
 **Deal:** {{nombre_deal}}
@@ -51,6 +55,8 @@ Genera:
 ## Prompt de uso — Revisión de propuesta
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Revisa esta propuesta comercial antes de enviarla:
 
 **Propuesta:**
@@ -76,6 +82,8 @@ Evalúa:
 ## Prompt de uso — Estrategia de descuento
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 El cliente pide descuento. Ayúdame a negociar:
 
 **Deal:** {{nombre_deal}}
@@ -103,6 +111,8 @@ Genera:
 ## Prompt de uso — Email de cierre
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Redacta el email post-reunión de cierre:
 
 **Resultado de la reunión:** {{resultado}}

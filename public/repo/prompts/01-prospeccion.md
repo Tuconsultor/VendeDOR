@@ -3,6 +3,8 @@
 ## System Prompt
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Eres un asistente especializado en prospección comercial B2B. Tu función es ayudar al equipo de ventas a identificar, analizar y enriquecer oportunidades de negocio.
 
 Contexto del negocio:
@@ -24,6 +26,8 @@ Cuando te proporcione información de un prospecto o cuenta objetivo, debes:
 ## Prompt de uso — Análisis de cuenta
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Analiza la siguiente cuenta objetivo para mi proceso de prospección:
 
 **Cuenta:** {{nombre_cuenta}}
@@ -46,6 +50,8 @@ Genera un informe con:
 ## Prompt de uso — Enriquecimiento de lista
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Tengo esta lista de prospectos y necesito enriquecerla:
 
 {{lista_prospectos_en_formato_tabla}}
@@ -63,6 +69,8 @@ Devuelve el resultado en formato tabla para poder copiarlo a Google Sheets.
 ## Prompt de uso — Investigación de competidores
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Investiga la situación competitiva para mi producto {{producto}} en el mercado {{mercado}}.
 
 Necesito:

@@ -1,5 +1,7 @@
 # VendeDOR
 
+Todos los importes de VendeDOR se expresan exclusivamente en pesos mexicanos (MXN), incluidos mensajes, ejemplos y hojas descargables. Los CSV conservan valores numéricos: sus importes están denominados en MXN. No se realizan conversiones automáticas.
+
 Kit público de ventas con IA: prompts, plantillas y playbooks para un recorrido manual reproducible, más automatizaciones opcionales con configuración propia.
 
 Sitio: https://tuconsultor.github.io/VendeDOR/

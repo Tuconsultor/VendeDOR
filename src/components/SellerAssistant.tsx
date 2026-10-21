@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
-import { buildMessage, demoBusiness, demoProspect, downloadFile, filename, initialAssistant, localDate, parseSaved, storageKey, tasks, currencies, phases, validateBusiness, validateProspect, type Business, type Prospect, type SavedAssistant } from '../lib/assistant';
+import { buildMessage, demoBusiness, demoProspect, downloadFile, filename, initialAssistant, localDate, parseSaved, storageKey, tasks, currencyLabel, hasForeignCurrency, phases, validateBusiness, validateProspect, type Business, type Prospect, type SavedAssistant } from '../lib/assistant';
 import { createWorkbook } from '../lib/workbook';
 import { resourceUrl } from '../lib/resources';
 
@@ -17,7 +17,7 @@ export default function SellerAssistant() {
   const [initial] = useState(initialState);
   const [data, setData] = useState<SavedAssistant>(initial || initialAssistant);
   const [remember, setRemember] = useState(!!initial);
-  const [notice, setNotice] = useState('');
+  const [notice, setNotice] = useState(initial?.currencyReviewRequired ? 'Revisa la moneda de tu avance y captura los importes en pesos mexicanos (MXN). No se aplicó ninguna conversión.' : '');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [copiedMessage, setCopiedMessage] = useState('');
@@ -45,15 +45,16 @@ export default function SellerAssistant() {
   const go = (step: number) => { setNotice(''); setError(''); patch({ step }); };
   const businessSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (!validateBusiness(data.business)) { setError('Completa el nombre de tu negocio, qué vendes y a quién quieres vender.'); return; }
-    setError(''); patch({ businessReady: true, step: 1 });
+    if (!validateBusiness(data.business)) { setError('Completa el nombre de tu negocio, qué vendes y a quién quieres vender. Expresa los importes exclusivamente en pesos mexicanos (MXN).'); return; }
+    setError(''); patch({ businessReady: true, step: 1, currencyReviewRequired: false });
   };
   const prospectSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (!validateProspect(data.prospect)) { setError('Indica un cliente, un importe válido o vacío y una probabilidad entre 0 y 100.'); return; }
+    if (!validateProspect(data.prospect)) { setError('Indica un cliente, un importe en pesos mexicanos (MXN) o vacío y una probabilidad entre 0 y 100. Revisa también la moneda en tus textos.'); return; }
     setError(''); patch({ prospectReady: true, step: 3 });
   };
-  const message = buildMessage(data.business, data.prospect, data.task);
+  const currencyConflict = hasForeignCurrency(JSON.stringify([data.business, data.prospect, data.action]));
+  const message = currencyConflict ? 'Revisa los importes de tus textos y notas: deben expresarse exclusivamente en pesos mexicanos (MXN).' : buildMessage(data.business, data.prospect, data.task);
   const copy = async () => {
     setError(''); setNotice('');
     try { await navigator.clipboard.writeText(message); setCopiedMessage(message); setNotice('Mensaje copiado. Abre Qwen, inicia un chat nuevo y pégalo.'); }
@@ -71,6 +72,7 @@ export default function SellerAssistant() {
   };
   const actionSubmit = (event: FormEvent) => {
     event.preventDefault();
+    if (currencyConflict) { setError('Revisa los importes en tus textos y notas: usa exclusivamente pesos mexicanos (MXN).'); return; }
     if (!data.action.description.trim() || !data.action.date || !data.reviewed || !data.usedQwen) { setError('Confirma que usaste el mensaje, revisa la respuesta y registra una acción con fecha.'); return; }
     setError(''); patch({ actionSaved: true, finalDownloaded: false }); setNotice('Siguiente acción registrada en este asistente. Descarga la hoja actualizada para conservarla.');
   };
@@ -114,12 +116,12 @@ export default function SellerAssistant() {
               <Field label="Nombre de mi negocio"><input name="business-name" className={inputClass} autoComplete="organization" value={data.business.company} onChange={event => businessChange('company', event.target.value)} required maxLength={150} placeholder="Ej. Muebles Rivera" /></Field>
               <Field label="¿Qué vendo?" hint="Explica tu producto o servicio como se lo contarías a un cliente."><textarea name="business-product" className={inputClass} rows={2} value={data.business.product} onChange={event => businessChange('product', event.target.value)} required maxLength={1500} placeholder="Ej. Mobiliario y diseño de oficinas para empresas" /></Field>
               <Field label="¿A quién quiero vender?" hint="Tipo de cliente, tamaño, zona o necesidad."><textarea name="business-target" className={inputClass} rows={2} value={data.business.target} onChange={event => businessChange('target', event.target.value)} required maxLength={1500} placeholder="Ej. Empresas de 10–50 empleados que abren oficina en Monterrey" /></Field>
-              <div className="grid sm:grid-cols-2 gap-5"><Field label="Mi sector (opcional)"><input name="business-sector" className={inputClass} value={data.business.sector} onChange={event => businessChange('sector', event.target.value)} maxLength={150} placeholder="Ej. Equipamiento de oficinas" /></Field><Field label="Mi moneda"><select name="business-currency" className={inputClass} value={data.business.currency} onChange={event => businessChange('currency', event.target.value)}>{currencies.map(currency => <option key={currency}>{currency}</option>)}</select></Field></div>
+              <div className="grid sm:grid-cols-2 gap-5"><Field label="Mi sector (opcional)"><input name="business-sector" className={inputClass} value={data.business.sector} onChange={event => businessChange('sector', event.target.value)} maxLength={150} placeholder="Ej. Equipamiento de oficinas" /></Field><Field label="Moneda de trabajo"><input name="business-currency" className={inputClass} value={currencyLabel} readOnly /></Field></div>
               <Field label="¿Qué quiero conseguir primero?"><select name="business-objective" className={inputClass} value={data.business.objective} onChange={event => businessChange('objective', event.target.value)}>{['Conseguir reuniones con posibles clientes', 'Conseguir una reunión de diagnóstico', 'Dar seguimiento a oportunidades', 'Preparar mejores propuestas', 'Organizar mi actividad comercial'].map(objective => <option key={objective}>{objective}</option>)}</select></Field>
               <button className={primaryClass} type="submit">Preparar mi hoja →</button>
             </form>}
             {data.step === 1 && <div className="space-y-5">
-              <p className="text-gray-300">Prepararemos una hoja para <strong>{data.business.company}</strong> en <strong>{data.business.currency}</strong>, con fases desplegables, fórmulas y un resumen. Puedes trabajar en Google Sheets o Excel.</p>
+              <p className="text-gray-300">Prepararemos una hoja para <strong>{data.business.company}</strong> en <strong>{currencyLabel}</strong>, con fases desplegables, fórmulas y un resumen. Puedes trabajar en Google Sheets o Excel.</p>
               <button className={primaryClass} disabled={busy} onClick={() => downloadSheet(false)}>{busy ? 'Preparando archivo…' : 'Descargar mi hoja preparada'}</button>
               <ol className="list-decimal list-inside space-y-3 text-gray-300"><li>Busca el archivo <strong className="break-all">{filename(data.business.company)}</strong> en Descargas.</li><li>Abre <a className="text-violet-300 underline" href="https://sheets.google.com" target="_blank" rel="noopener noreferrer">Google Sheets ↗</a> y crea una hoja en blanco. Ve a <strong>Archivo → Importar → Subir</strong> y selecciona el archivo descargado. Elige crear una hoja de cálculo nueva.</li><li>Revisa las pestañas <strong>Empieza aquí</strong>, <strong>Pipeline Principal</strong>, <strong>Dashboard</strong> y <strong>Actividad</strong>. En Excel puedes abrir el archivo directamente.</li></ol>
               <p className="rounded-xl bg-gray-800 p-4 text-sm text-gray-300">La hoja inicial está vacía para tus propios datos. Al terminar el recorrido podrás descargar otra copia con tu primer cliente y su siguiente acción. Las descargas no modifican lo que ya guardaste en Google.</p>
@@ -133,7 +135,7 @@ export default function SellerAssistant() {
               <Field label="Empresa o cliente al que quiero vender"><input name="prospect-company" className={inputClass} value={data.prospect.company} onChange={event => prospectChange('company', event.target.value)} required maxLength={200} placeholder="Ej. Distribuidora del Norte" /></Field>
               <Field label="¿Qué sé sobre su necesidad? (opcional)" hint="Evita información sensible. Si no lo sabes, prepararemos preguntas para averiguarlo."><textarea name="prospect-need" className={inputClass} rows={3} value={data.prospect.need} onChange={event => prospectChange('need', event.target.value)} maxLength={3000} placeholder="Ej. Está ampliando su equipo y necesita equipar una oficina" /></Field>
               <Field label="Nombre del contacto (opcional)"><input name="prospect-contact" className={inputClass} value={data.prospect.contact} onChange={event => prospectChange('contact', event.target.value)} maxLength={150} placeholder="Puedes dejarlo vacío" /></Field>
-              <div className="grid sm:grid-cols-2 gap-5"><Field label={`Valor estimado (${data.business.currency}, opcional)`} hint="Déjalo vacío si aún no lo sabes."><input name="prospect-amount" className={inputClass} type="number" min="0" max="1000000000000" step="0.01" value={data.prospect.amount} onChange={event => prospectChange('amount', event.target.value)} /></Field><Field label="Probabilidad orientativa (%)" hint="Una estimación tuya entre 0 y 100; puedes revisarla después."><input name="prospect-probability" className={inputClass} type="number" min="0" max="100" step="any" required value={data.prospect.probability} onChange={event => prospectChange('probability', event.target.value)} /></Field></div>
+              <div className="grid sm:grid-cols-2 gap-5"><Field label={`Valor estimado en ${currencyLabel} (opcional)`} hint="Déjalo vacío si aún no lo sabes."><input name="prospect-amount" className={inputClass} type="number" min="0" max="1000000000000" step="0.01" value={data.prospect.amount} onChange={event => prospectChange('amount', event.target.value)} /></Field><Field label="Probabilidad orientativa (%)" hint="Una estimación tuya entre 0 y 100; puedes revisarla después."><input name="prospect-probability" className={inputClass} type="number" min="0" max="100" step="any" required value={data.prospect.probability} onChange={event => prospectChange('probability', event.target.value)} /></Field></div>
               <Field label="¿En qué punto está la oportunidad?"><select name="prospect-phase" className={inputClass} value={data.prospect.phase} onChange={event => prospectChange('phase', event.target.value)}>{phases.map(phase => <option key={phase}>{phase}</option>)}</select></Field>
               <button className={primaryClass} type="submit">Preparar mi primera acción →</button>
             </form>}
@@ -146,7 +148,7 @@ export default function SellerAssistant() {
                 <p className="text-sm text-gray-400 mb-4">Ya incorporamos tus datos para «{activeTask.title}». Copia el mensaje, abre una conversación nueva en Qwen y pégalo. La respuesta la generará Qwen cuando lo envíes allí.</p>
                 <label className="block text-sm text-gray-300" htmlFor="seller-message">Mensaje listo para Qwen</label>
                 <textarea id="seller-message" className={`${inputClass} text-sm leading-6`} rows={8} readOnly value={message} />
-                <div className="flex flex-wrap gap-3 mt-4"><button className={primaryClass} onClick={copy}>{copiedMessage === message ? '✓ Mensaje copiado' : 'Copiar mensaje'}</button><a href="https://qwen.ai" target="_blank" rel="noopener noreferrer" className={secondaryClass}>Abrir Qwen ↗</a><button className="text-sm text-violet-300 underline" onClick={() => downloadFile(message, 'mi-mensaje-para-qwen.txt', 'text/plain;charset=utf-8')}>Descargar mensaje</button></div>
+                <div className="flex flex-wrap gap-3 mt-4"><button className={primaryClass} disabled={currencyConflict} onClick={copy}>{copiedMessage === message ? '✓ Mensaje copiado' : 'Copiar mensaje'}</button><a href="https://qwen.ai" target="_blank" rel="noopener noreferrer" className={secondaryClass}>Abrir Qwen ↗</a><button className="text-sm text-violet-300 underline" disabled={currencyConflict} onClick={() => downloadFile(message, 'mi-mensaje-para-qwen.txt', 'text/plain;charset=utf-8')}>Descargar mensaje</button></div>
                 <label className="flex gap-3 mt-5 items-start text-sm text-gray-200"><input type="checkbox" name="qwen-used" className="mt-1 accent-violet-500" checked={data.usedQwen} onChange={event => patch({ usedQwen: event.target.checked, reviewed: event.target.checked ? data.reviewed : false, actionSaved: false, finalDownloaded: false })} />Ya pegué y envié este mensaje en Qwen.</label>
               </div>
               <form onSubmit={actionSubmit} className="space-y-5">
@@ -166,6 +168,7 @@ export default function SellerAssistant() {
               <details className="text-sm text-gray-400"><summary className="cursor-pointer text-gray-200">¿Cómo sigo trabajando después?</summary><p className="mt-3">Añade nuevos clientes directamente en tu hoja, actualiza su fase y próxima acción, y vuelve aquí para preparar mensajes. El asistente trabaja con un cliente de referencia por vez. Google Sheets y este formulario se editan por separado.</p><a className="inline-block mt-3 text-violet-300 underline" href={resourceUrl('guias/inicio-manual.md')} download>Descargar guía completa</a></details>
             </div>}
             <p role="status" aria-live="polite" className="mt-5 text-sm text-emerald-300">{notice}</p>
+            {currencyConflict && <p role="alert" className="mt-4 text-amber-200 text-sm">Revisa los importes de tus textos y notas: usa exclusivamente pesos mexicanos (MXN). No se realizará ninguna conversión.</p>}
             {error && <p role="alert" className="mt-4 rounded-xl border border-amber-700 p-3 text-amber-200 text-sm">{error}</p>}
           </div>
         </div>

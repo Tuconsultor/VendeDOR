@@ -30,7 +30,7 @@ En la web, abre «Recursos para ponerlo en marcha». Elige una carpeta y usa Abr
 3. En Sheets: Archivo → Importar → Subir → selecciona el CSV. Importa en una hoja nueva y elige separador coma. Conserva las cabeceras y su orden.
 4. Renombra la pestaña a «Pipeline Principal» (mayúsculas y espacios incluidos).
 5. Verifica: hay 24 columnas A:X y 4 oportunidades; los importes son 12000, 8000, 5000 y 3000; las probabilidades son 25, 60, 100 y 0. No hay símbolos de moneda ni separadores de millares en los CSV.
-6. Formatea K, L, O, W y X como fechas, H como número/moneda y J como número 0–100. J contiene 25 para 25%, no 0,25. Elige una sola moneda para toda la hoja; el ejemplo puede interpretarse en EUR.
+6. Formatea K, L, O, W y X como fechas, H como número/moneda y J como número 0–100. J contiene 25 para 25%, no 0,25. Todos los importes se capturan exclusivamente en pesos mexicanos (MXN).
 7. Crea una pestaña «Actividad» importando actividad.csv y otra «Métricas Semanales» importando metricas-semanales.csv. Usa «Insertar hojas nuevas» para conservar el pipeline.
 8. El resto de pestañas y listas desplegables están descritos en templates/pipeline-sheet.md. Son opcionales para la primera prueba. En I, crea un desplegable con Prospección, Demo, Propuesta, Negociación, Cerrado Ganado y Cerrado Perdido.
 9. Para empezar sin datos ficticios, importa pipeline-vacio.csv en otro archivo y añade tus oportunidades. Usa IDs únicos y mantén A:X.

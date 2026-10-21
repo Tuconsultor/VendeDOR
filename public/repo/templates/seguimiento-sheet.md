@@ -28,9 +28,9 @@
 | Propuestas enviadas | | | | |
 | Deals avanzados de fase | | | | |
 | Deals cerrados | | | | |
-| Revenue cerrado (€) | | | | |
+| Revenue cerrado (MXN) | | | | |
 | Win rate (%) | | | | |
-| Pipeline generado (€) | | | | |
+| Pipeline generado (MXN) | | | | |
 | Días medios en pipeline | | | | |
 
 ## Hoja: "Ritmo Semanal"

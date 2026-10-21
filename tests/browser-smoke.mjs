@@ -49,6 +49,7 @@ try {
   await call('Page.navigate', { url: site }); await step('Mi negocio');
   assert.equal(await evaluate(`document.querySelector('nav[aria-label="Pasos de puesta en marcha"] button:nth-child(4)').disabled`), true);
   assert.equal(await evaluate(`localStorage.getItem('vendedor-assistant-v1')`), null);
+  if (await evaluate(`!!document.querySelector('[name=business-currency]')`)) assert.deepEqual(await evaluate(`({value:document.querySelector('[name=business-currency]').value, readOnly:document.querySelector('[name=business-currency]').readOnly})`), {value:'pesos mexicanos (MXN)',readOnly:true});
   assert.equal(await evaluate(`document.querySelector('#avanzado details').open`), false);
   assert.equal(await evaluate(`document.querySelectorAll('nav[aria-label="Carpetas de recursos"] button').length`), 5);
   await evaluate(`document.querySelector('[name="business-name"]').form.requestSubmit()`); await step('Mi negocio');
@@ -59,7 +60,7 @@ try {
   await fill('prospect-company', 'Distribuidora del Norte'); await fill('prospect-need', 'Abre una oficina para 20 personas'); await fill('prospect-amount', '50000');
   await evaluate(`document.querySelector('[name="prospect-company"]').form.requestSubmit()`); await step('Mi primera acción');
   const prompt = await evaluate(`document.querySelector('#seller-message').value`);
-  assert.match(prompt, /Muebles Rivera/); assert.match(prompt, /Distribuidora del Norte/); assert.ok(!prompt.includes('{{'));
+  assert.match(prompt, /Muebles Rivera/); assert.match(prompt, /Distribuidora del Norte/); assert.ok(!prompt.includes('{{')); assert.match(prompt, /pesos mexicanos \(MXN\)/); assert.match(prompt, /MXN.*50,000.00/);
   assert.equal(await evaluate(`localStorage.getItem('vendedor-assistant-v1')`), null);
   // User explicitly consents to storage, then a reload must restore the same step.
   await evaluate(`Array.from(document.querySelectorAll('#guia input[type=checkbox]')).find(el=>el.parentElement.textContent.includes('Guardar mi avance')).click()`);
@@ -67,6 +68,9 @@ try {
   await call('Page.reload'); await step('Mi primera acción');
   assert.match(await evaluate(`document.querySelector('#seller-message').value`), /Muebles Rivera/);
   await evaluate(`Array.from(document.querySelectorAll('[role="group"][aria-label="Tareas comerciales"] button')).find(b=>b.textContent.startsWith('Responder una objeción')).click()`);
+  await fill('prospect-objection', 'El presupuesto es 100 USD');
+  await waitFor(`!!document.querySelector('#guia [role=alert]') && document.querySelector('#seller-message').value.includes('pesos mexicanos')`);
+  assert.equal(await evaluate(`Array.from(document.querySelectorAll('#guia button')).find(b=>b.textContent==='Copiar mensaje').disabled`), true);
   await fill('prospect-objection', 'Me parece caro');
   await waitFor(`document.querySelector('#seller-message').value.includes('Me parece caro')`);
   await button('Copiar mensaje'); await waitFor(`document.querySelector('#guia [role="status"]').textContent.includes('Mensaje copiado')`);
@@ -90,7 +94,7 @@ try {
   }
   assert.ok(finalBook, 'Final spreadsheet was not downloaded');
   const sheet = finalBook.getWorksheet('Pipeline Principal');
-  assert.equal(sheet.getCell('H2').value, 50000); assert.equal(sheet.getCell('N2').value, 'Proponer una llamada de diagnóstico'); assert.equal(sheet.getCell('O2').value.toISOString().slice(0,10), '2099-01-02');
+  assert.equal(sheet.getCell('H2').value, 50000); assert.match(sheet.getCell('H2').numFmt,/MXN/); assert.equal(sheet.getCell('N2').value, 'Proponer una llamada de diagnóstico'); assert.equal(sheet.getCell('O2').value.toISOString().slice(0,10), '2099-01-02');
   assert.match(sheet.getCell('U2').value, /Pendiente de confirmar alcance/);
   assert.ok(finalBook.getWorksheet('Dashboard').getCell('B4').value.formula.includes('SUMPRODUCT'));
   await call('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });

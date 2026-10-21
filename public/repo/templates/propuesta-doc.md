@@ -1,5 +1,7 @@
 # Template: Propuesta Comercial (Google Docs)
 
+Todos los precios, importes de inversión, costes y retornos monetarios se expresan exclusivamente en pesos mexicanos (MXN). Solicita el importe confirmado en MXN antes de incorporar una cifra en otra moneda.
+
 ## Estructura del documento
 
 ---
@@ -58,11 +60,11 @@
 
 ### 4. Inversión
 
-| Concepto | Detalle | Precio |
+| Concepto | Detalle | Precio (MXN) |
 |----------|---------|--------|
 | {{Concepto 1}} | {{Detalle}} | {{Precio}} |
 | {{Concepto 2}} | {{Detalle}} | {{Precio}} |
-| **Total** | | **{{TOTAL}}** |
+| **Total** | | **{{TOTAL}} MXN** |
 
 **Condiciones:**
 - {{Condición 1}}
@@ -70,8 +72,8 @@
 - {{Condición 3}}
 
 **ROI estimado:**
-- Inversión: {{INVERSIÓN}}
-- Retorno esperado (año 1): {{ROI}}
+- Inversión: {{INVERSIÓN}} MXN
+- Retorno esperado (año 1): {{ROI}} MXN
 - Payback period: {{PAYBACK}}
 
 ---

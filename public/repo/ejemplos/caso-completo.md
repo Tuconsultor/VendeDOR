@@ -4,7 +4,7 @@ Todas las empresas, personas y cifras de este caso son ficticias. Las respuestas
 
 ## Contexto que puedes copiar
 
-Empresa: DemoCRM. Sector: software de ventas B2B. Producto: organización de oportunidades y seguimiento comercial. Cliente ideal: distribuidoras con 10–50 vendedores que gestionan oportunidades en hojas de cálculo. Ticket anual orientativo: 8000–12000 EUR. Mercado: España. No tenemos referencias verificables de clientes: no generes testimonios ni casos de éxito como si fueran reales.
+Empresa: DemoCRM. Sector: software de ventas B2B. Producto: organización de oportunidades y seguimiento comercial. Cliente ideal: distribuidoras con 10–50 vendedores que gestionan oportunidades en hojas de cálculo. Ticket anual orientativo: 8000–12000 MXN. Mercado: México. No tenemos referencias verificables de clientes: no generes testimonios ni casos de éxito como si fueran reales.
 
 ## 1. Prepara los datos
 
@@ -53,9 +53,9 @@ Copia propuesta-doc.md a Docs y usa 07-negociacion.md para revisarla. Propón un
 Sin cambiar los importes ni probabilidades del CSV:
 
 - Oportunidades abiertas: 2.
-- Pipeline abierto: 20000 EUR (12000 + 8000).
-- Forecast ponderado abierto: 7800 EUR (12000 × 25/100 + 8000 × 60/100).
-- Ganado total registrado: 5000 EUR.
+- Pipeline abierto: 20000 MXN (12000 + 8000).
+- Forecast ponderado abierto: 7800 MXN (12000 × 25/100 + 8000 × 60/100).
+- Ganado total registrado: 5000 MXN.
 - Tasa de cierre de oportunidades cerradas: 50% (1 ganada / 2 cerradas).
 
 Pasa la tabla a 03-pipeline.md y luego a 08-reporting.md. Comprueba esos cálculos. No hay histórico ni actividad suficiente para afirmar ingresos de esta semana o mejora frente a la anterior. El informe debe señalar esa limitación.

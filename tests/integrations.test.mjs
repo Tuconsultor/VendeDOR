@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { generateKeyPairSync, verify } from 'node:crypto';
-import { headers, metrics, parseRows, parseScore, run, googleToken, requestJson } from '../public/repo/scripts/sales.mjs';
+import { headers, metrics, parseRows, parseScore, run, googleToken, requestJson, assertMxnOutput } from '../public/repo/scripts/sales.mjs';
 import { createReview, isoWeek } from '../public/repo/scripts/review.mjs';
 
 const { privateKey, publicKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
@@ -64,7 +64,7 @@ test('el caso guiado calcula métricas sin mezclar cerradas con forecast abierto
   assert.equal(metrics([]).winRate, null);
 });
 test('rechaza cabeceras, IDs duplicados, valores y fases inválidas antes de escribir', () => {
-  for (const mutate of [x => { x[0] = ['Incorrecto']; }, x => { x[2][0] = x[1][0]; }, x => { x[1][7] = '12.000 EUR'; }, x => { x[1][9] = 150; }, x => { x[1][8] = 'Desconocida'; }]) {
+  for (const mutate of [x => { x[0] = ['Incorrecto']; }, x => { x[2][0] = x[1][0]; }, x => { x[1][7] = '12.000 MXN'; }, x => { x[1][9] = 150; }, x => { x[1][8] = 'Desconocida'; }]) {
     const values = structuredClone(fixture()); mutate(values); assert.throws(() => parseRows(values));
   }
 });
@@ -94,6 +94,8 @@ test('report genera archivos verificables y añade al Doc solo si se configura',
   const mock = service();
   await run('report', { ...mock.options, env: { ...env, GOOGLE_REPORT_DOC_ID: 'demo_doc' } });
   assert.equal(JSON.parse(mock.files['output/metrics.json']).weightedForecast, 7800);
+  assert.equal(JSON.parse(mock.files['output/metrics.json']).currency, 'MXN');
+  assert.match(mock.files['output/report.md'], /MXN.*20,000.00/);
   assert.match(mock.files['output/report.md'], /no mide solo esta semana/);
   assert.match(mock.files['output/report.md'], /Análisis de prueba/);
   const docCall = mock.calls.find(x => x.url.includes('documents/demo_doc:batchUpdate'));
@@ -129,4 +131,9 @@ test('no reintenta una inserción no idempotente de Docs tras un error', async (
 });
 test('errores de formato del proveedor no exponen el cuerpo recibido', async () => {
   await assert.rejects(requestJson('https://example.invalid/api', {}, async () => new Response('sensitive-body', { status: 200 })), error => error.message.includes('no era JSON válido') && !error.message.includes('sensitive-body'));
+});
+
+test('el análisis de IA en otra moneda se rechaza antes de guardarse', () => {
+  assert.equal(assertMxnOutput('Importe: MXN 12,000.00'), 'Importe: MXN 12,000.00');
+  for (const text of ['Importe 100 EUR', 'USD 200', '50 euros', '£30', '100 pesos colombianos (COP)']) assert.throws(() => assertMxnOutput(text), /otra moneda/);
 });

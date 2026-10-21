@@ -4,7 +4,7 @@
 
 Importa ejemplos/pipeline-demo.csv o pipeline-vacio.csv desde Archivo → Importar → Subir. El separador es coma; no cambies el orden ni el nombre de las 24 cabeceras. Renombra la pestaña «Pipeline Principal».
 
-Define una sola moneda para los importes y anótala en el nombre o descripción del archivo. En J usa números de 0 a 100: 25 significa 25%, no 0,25. Las fórmulas siguientes usan funciones en español y separador punto y coma. Si tu Sheets usa otro idioma/región, adapta nombres y separadores o usa las alternativas inglesas indicadas.
+Usa exclusivamente pesos mexicanos (MXN) para todos los importes. Aplica a la columna H el formato de pesos mexicanos; mantén los valores como números. En J usa números de 0 a 100: 25 significa 25%, no 0,25. Las fórmulas siguientes usan funciones en español y separador punto y coma. Si tu Sheets usa otro idioma/región, adapta nombres y separadores o usa las alternativas inglesas indicadas.
 
 ## Pipeline Principal: columnas A:X
 

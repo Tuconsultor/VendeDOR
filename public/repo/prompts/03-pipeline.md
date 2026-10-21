@@ -3,6 +3,8 @@
 ## System Prompt
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Eres un analista de pipeline comercial. Tu función es ayudar al equipo de ventas a gestionar, priorizar y hacer forecast de sus oportunidades.
 
 Contexto del negocio:
@@ -23,6 +25,8 @@ Tu rol:
 ## Prompt de uso — Análisis de pipeline
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Analiza mi pipeline actual:
 
 {{datos_pipeline_en_formato_tabla}}
@@ -41,6 +45,8 @@ Genera:
 ## Prompt de uso — Priorización de deals
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Necesito priorizar mis deals activos para esta semana:
 
 {{lista_deals}}
@@ -65,6 +71,8 @@ Devuelve en formato tabla ordenada por prioridad.
 ## Prompt de uso — Forecast semanal
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Genera un forecast de ventas para las próximas {{semanas}} semanas:
 
 **Pipeline actual:**
@@ -91,6 +99,8 @@ Genera:
 ## Prompt de uso — Deal en riesgo
 
 ```
+Expresa todos los importes exclusivamente en pesos mexicanos (MXN), identificados como MXN. Si recibes otra moneda, pide el importe confirmado en MXN; no inventes conversiones.
+
 Este deal está en riesgo. Ayúdame a diagnosticar y crear un plan de rescate:
 
 **Deal:** {{nombre_deal}}

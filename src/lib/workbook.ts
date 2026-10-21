@@ -1,6 +1,7 @@
-import { crmHeaders, phases, type Business, type Prospect, type NextAction, localDate } from './assistant.ts';
+import { crmHeaders, phases, type Business, type Prospect, type NextAction, localDate, currencyLabel, currencyCode, hasForeignCurrency } from './assistant.ts';
 
 export async function createWorkbook(business: Business, prospect?: Prospect, action?: NextAction, today = new Date()) {
+  if (business.currency !== currencyCode || hasForeignCurrency(JSON.stringify([business, prospect, action]))) throw new Error('Captura los importes en pesos mexicanos (MXN) antes de preparar la hoja.');
   // Loaded only when the seller requests a spreadsheet.
   const ExcelJS = (await import('exceljs')).default;
   const book = new ExcelJS.Workbook();
@@ -9,7 +10,7 @@ export async function createWorkbook(business: Business, prospect?: Prospect, ac
   intro.columns = [{ width: 28 }, { width: 105 }];
   intro.addRows([
     ['Mi hoja de oportunidades', business.company], ['Qué vendo', business.product], ['A quién vendo', business.target],
-    ['Moneda única', business.currency], ['Mi objetivo', business.objective],
+    ['Moneda única', currencyLabel], ['Mi objetivo', business.objective],
     ['Cómo empezar', 'Abre Pipeline Principal y registra una oportunidad por fila. Los datos de ejemplo no se mezclan con tus clientes.'],
     ['Abrir en Google Sheets', 'En Google Sheets: Archivo → Importar → Subir → selecciona este archivo → Crear hoja de cálculo nueva.'],
     ['También puedes usar Excel', 'Abre este archivo y permite recalcular las fórmulas si tu aplicación lo solicita.'],
@@ -29,6 +30,7 @@ export async function createWorkbook(business: Business, prospect?: Prospect, ac
   const sheet = book.addWorksheet('Pipeline Principal', { views: [{ state: 'frozen', ySplit: 1, xSplit: 3 }] });
   sheet.columns = crmHeaders.map((header, index) => ({ header, width: [1, 2, 13, 20].includes(index) ? 36 : 22 }));
   sheet.autoFilter = 'A1:X501';
+  sheet.getCell('H1').note = 'Todos los importes se capturan exclusivamente en pesos mexicanos (MXN).';
   for (let row = 2; row <= 501; row++) {
     sheet.getCell(`M${row}`).value = { formula: `IF(OR(C${row}="",I${row}="Cerrado Ganado",I${row}="Cerrado Perdido",W${row}=""),"",TODAY()-W${row})` };
     sheet.getCell(`I${row}`).dataValidation = { type: 'list', allowBlank: true, formulae: [`"${phases.join(',')}"`], showErrorMessage: true, errorTitle: 'Elige una fase', error: 'Selecciona una fase de la lista.' };
@@ -36,7 +38,7 @@ export async function createWorkbook(business: Business, prospect?: Prospect, ac
     sheet.getCell(`J${row}`).dataValidation = { type: 'decimal', operator: 'between', allowBlank: true, formulae: [0, 100], showErrorMessage: true, error: 'Escribe un número entre 0 y 100.' };
     sheet.getCell(`Q${row}`).dataValidation = { type: 'whole', operator: 'between', allowBlank: true, formulae: [1, 10], showErrorMessage: true, error: 'Escribe un entero entre 1 y 10 o déjalo vacío.' };
     sheet.getCell(`H${row}`).dataValidation = { type: 'decimal', operator: 'greaterThanOrEqual', allowBlank: true, formulae: [0], showErrorMessage: true, error: 'Escribe un importe positivo o cero.' };
-    sheet.getCell(`H${row}`).numFmt = '#,##0.00'; sheet.getCell(`J${row}`).numFmt = '0.##"%"';
+    sheet.getCell(`H${row}`).numFmt = '"MXN" #,##0.00'; sheet.getCell(`J${row}`).numFmt = '0.##"%"';
     for (const col of ['K', 'L', 'O', 'W', 'X']) sheet.getCell(`${col}${row}`).numFmt = 'yyyy-mm-dd';
   }
   if (prospect?.company.trim()) {
@@ -52,7 +54,7 @@ export async function createWorkbook(business: Business, prospect?: Prospect, ac
     for (const [address, value] of Object.entries(cells)) sheet.getCell(address).value = value;
   }
   const dashboard = book.addWorksheet('Dashboard');
-  dashboard.columns = [{ header: `Resumen (${business.currency})`, width: 42 }, { header: 'Valor', width: 24 }];
+  dashboard.columns = [{ header: `Resumen en ${currencyLabel}`, width: 42 }, { header: 'Valor', width: 24 }];
   const range = (col: string) => `'Pipeline Principal'!${col}2:${col}501`;
   const open = (col: string) => `SUMIFS(${range(col)},${range('I')},"<>Cerrado Ganado",${range('I')},"<>Cerrado Perdido")`;
   const metrics = [
@@ -63,7 +65,7 @@ export async function createWorkbook(business: Business, prospect?: Prospect, ac
     ['Tasa de cierre (%)', `IFERROR(COUNTIF(${range('I')},"Cerrado Ganado")/(COUNTIF(${range('I')},"Cerrado Ganado")+COUNTIF(${range('I')},"Cerrado Perdido"))*100,"Sin datos")`],
     ['Abiertas sin importe', `COUNTIFS(${range('C')},"<>",${range('I')},"<>Cerrado Ganado",${range('I')},"<>Cerrado Perdido",${range('H')},"=")`],
   ];
-  metrics.forEach(([label, formula], i) => { dashboard.getCell(`A${i + 2}`).value = label; dashboard.getCell(`B${i + 2}`).value = { formula }; dashboard.getCell(`B${i + 2}`).numFmt = '0.##'; });
+  metrics.forEach(([label, formula], i) => { dashboard.getCell(`A${i + 2}`).value = label; dashboard.getCell(`B${i + 2}`).value = { formula }; dashboard.getCell(`B${i + 2}`).numFmt = [1, 2, 3].includes(i) ? '"MXN" #,##0.00' : '0.##'; });
   dashboard.addRow(['Ámbito', 'Foto actual de hasta 500 oportunidades, no ventas exclusivas de la semana.']);
   dashboard.addRow(['Importes pendientes', 'Completa valores faltantes y revisa probabilidades antes de tomar decisiones.']);
   dashboard.getColumn(2).alignment = { wrapText: true };

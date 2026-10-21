@@ -1,5 +1,7 @@
 # VendeDOR: kit de ventas con IA
 
+Todos los importes de VendeDOR se expresan exclusivamente en pesos mexicanos (MXN), incluidos mensajes, ejemplos y hojas descargables. Los CSV conservan valores numéricos: sus importes están denominados en MXN. No se realizan conversiones automáticas.
+
 Biblioteca de prompts, plantillas, playbooks y automatizaciones opcionales para Qwen, Google Sheets/Docs y GitHub Actions.
 
 ## Empieza con el asistente
