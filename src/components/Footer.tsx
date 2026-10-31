@@ -14,7 +14,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm text-gray-500 max-w-sm">
-              Un asistente guiado para organizar tus oportunidades y preparar acciones comerciales con tus propios datos.
+              IA en palabras sencillas para quien vende productos, ofrece servicios o trabaja por su cuenta en México.
             </p>
           </div>
 
@@ -22,9 +22,9 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-gray-300 mb-3">Sistema</h4>
             <ul className="space-y-2 text-sm text-gray-500">
-              <li><a href="#fases" className="hover:text-white transition-colors">8 Fases</a></li>
+              <li><a href="#fases" className="hover:text-white transition-colors">Guías de venta</a></li>
               <li><a href="#avanzado" className="hover:text-white transition-colors">Automatización opcional</a></li>
-              <li><a href="#repo" className="hover:text-white transition-colors">Repositorio</a></li>
+              <li><a href="#repo" className="hover:text-white transition-colors">Materiales</a></li>
               <li><a href="#beneficios" className="hover:text-white transition-colors">Beneficios</a></li>
             </ul>
           </div>
@@ -51,3 +51,4 @@ export default function Footer() {
     </footer>
   );
 }
+
