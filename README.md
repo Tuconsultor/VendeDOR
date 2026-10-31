@@ -2,13 +2,15 @@
 
 Todos los importes de VendeDOR se expresan exclusivamente en pesos mexicanos (MXN), incluidos mensajes, ejemplos y hojas descargables. Los CSV conservan valores numéricos: sus importes están denominados en MXN. No se realizan conversiones automáticas.
 
-Kit público de ventas con IA: prompts, plantillas y playbooks para un recorrido manual reproducible, más automatizaciones opcionales con configuración propia.
+Herramienta gratuita para personas que trabajan por su cuenta o tienen un micronegocio en México y quieren usar IA con poco presupuesto. Pensada para preparar el trabajo cotidiano desde el celular, con ejemplos iniciales de León, Guanajuato: productos, servicios, oficios y comercios que atienden por WhatsApp o Facebook.
 
 Sitio: https://tuconsultor.github.io/VendeDOR/
 
 ## Usar el kit sin programar
 
-Abre el [asistente para vendedores](https://tuconsultor.github.io/VendeDOR/#guia): configura tu negocio, descarga tu hoja preparada y trabaja tu primer cliente con mensajes personalizados. El avance se guarda en el navegador solo si lo autorizas. No requiere programación, cuenta de GitHub ni claves de API.
+Empieza en [¿Qué necesitas hacer hoy?](https://tuconsultor.github.io/VendeDOR/#hoy): publicar, responder, cotizar, dar seguimiento u organizar pendientes. Describe qué vendes, tus clientes, precio opcional en MXN y contexto. El sitio prepara una instrucción personalizada para copiar en Qwen, ChatGPT u otra IA. No ejecuta un modelo ni envía mensajes. Las opciones gratuitas de esos servicios tienen límites y pueden requerir cuenta. Este recorrido no guarda datos entre recargas ni requiere descargar una hoja.
+
+Para llevar un seguimiento con hoja de cálculo, abre el [asistente para vendedores](https://tuconsultor.github.io/VendeDOR/#guia): configura tu negocio, descarga tu hoja preparada y trabaja tu primer cliente con mensajes personalizados. El avance se guarda en el navegador solo si lo autorizas. No requiere programación, cuenta de GitHub ni claves de API.
 
 También puedes empezar en [la guía manual](public/repo/guias/inicio-manual.md) y completa [el caso con datos ficticios](public/repo/ejemplos/caso-completo.md). Los materiales se pueden abrir, copiar y descargar desde el sitio o desde [public/repo](public/repo/README.md).
 
@@ -49,3 +51,8 @@ npm exec vite preview -- --host 127.0.0.1 --port 4173 --strictPort --base=/Vende
 En otra terminal ejecuta `node tests/browser-smoke.mjs`. La prueba usa un perfil temporal de Chromium, completa los cuatro pasos con datos ficticios, comprueba dos descargas XLSX, el portapapeles, el consentimiento de guardado, la restauración y el borrado local. No envía mensajes a Qwen ni usa credenciales de Google. Necesita libre el puerto 9223. Puedes indicar el ejecutable con CHROMIUM_PATH.
 
 La hoja se genera al descargarla mediante una dependencia cargada bajo demanda; el paquete inicial no incluye ese generador. La importación y el recálculo en las cuentas reales de Google/Excel deben comprobarse al abrir el archivo. El asistente no sincroniza cambios hechos en Sheets.
+
+
+## Validación de propuestas
+
+Las solicitudes de cambios a `main` ejecutan instalación, TypeScript, pruebas y compilación en GitHub Actions. El archivo `vendedor-preview` contiene el sitio compilado para revisar localmente; no es un despliegue público.

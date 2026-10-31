@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import QuickStart from './components/QuickStart';
 import SellerAssistant from './components/SellerAssistant';
 import HeroSection from './components/HeroSection';
 import PhasesSection from './components/PhasesSection';
@@ -17,7 +18,8 @@ function App() {
     <div className="min-h-screen bg-gray-950 text-white font-sans">
       <Navbar />
       <HeroSection />
-      <SellerAssistant />
+      <QuickStart />
+      <section className="px-4 py-8"><h2 className="max-w-6xl mx-auto text-xl font-semibold">Opcional: organizar clientes en una hoja de cálculo</h2><SellerAssistant /></section>
       <BenefitsSection />
       <PhasesSection activePhase={activePhase} setActivePhase={setActivePhase} />
       <RepoSection />
@@ -36,3 +38,4 @@ function App() {
 }
 
 export default App;
+
